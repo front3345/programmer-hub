@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programmers Hub</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="hub-wrapper">
+        <header class="hub-header">
+            <div class="header-badge">DEV DIRECTORY</div>
+            <h1>Programmers Hub</h1>
+            <p>Manage and showcase developer profiles & tech stacks</p>
+        </header>
+
+        <div class="content-grid">
+            <section class="panel form-panel">
+                <div class="panel-title">
+                    <span class="dot"></span>
+                    <h2>Add New Developer</h2>
+                </div>
+                <form action="/add" method="POST">
+                    <div class="input-group">
+                        <label>Full Name</label>
+                        <input type="text" name="name" placeholder="e.g. Sarah Ahmed" required>
+                    </div>
+                    <div class="row-inputs">
+                        <div class="input-group">
+                            <label>Birth Date</label>
+                            <input type="date" name="birth_date" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Experience (Yrs)</label>
+                            <input type="number" name="experience" placeholder="e.g. 3" min="0" required>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Primary Language</label>
+                        <input type="text" name="language" placeholder="e.g. Python, C++" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Framework / Tech</label>
+                        <input type="text" name="framework" placeholder="e.g. Flask, React" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Save Profile</button>
+                </form>
+            </section>
+
+            <section class="panel list-panel">
+                <div class="panel-header-flex">
+                    <div class="panel-title">
+                        <span class="dot pink"></span>
+                        <h2>Registered Developers</h2>
+                    </div>
+                    <span class="count-badge">{{ programmers|length }} Total</span>
+                </div>
+
+                <div class="cards-grid">
+                    {% for p in programmers %}
+                    <div class="programmer-card">
+                        <div class="card-top">
+                            <div class="avatar">{{ p['name'][0] | upper }}</div>
+                            <div class="dev-info">
+                                <h3>{{ p['name'] }}</h3>
+                                <span class="exp-tag">{{ p['experience'] }} Years Experience</span>
+                            </div>
+                        </div>
+                        <div class="card-tags">
+                            <span class="tag lang-tag">{{ p['language'] }}</span>
+                            <span class="tag tech-tag">{{ p['framework'] }}</span>
+                        </div>
+                        <div class="card-footer">
+                            <span>🎂 Born: {{ p['birth_date'] }}</span>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="empty-state">
+                        <div class="empty-icon">👨‍💻</div>
+                        <p>No developers registered yet.</p>
+                        <span>Fill out the form to add your first profile!</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect
 import sqlite3
 
 app = Flask(__name__)
@@ -45,7 +45,7 @@ def add():
     db.commit()
     db.close()
     
-    return redirect(url_for('home'))
+    return redirect(/)
 
 if __name__ == "__main__":
     init_db()
